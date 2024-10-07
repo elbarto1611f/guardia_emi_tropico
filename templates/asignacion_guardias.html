@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignación de Guardias mediante Machine Learning</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header-title">
+        <h1>Asignación de Guardias mediante Machine Learning</h1>
+    </div>
+    <main>
+        <h2>Asignar Guardias a los Estudiantes</h2>
+        <form action="{{ url_for('asignacion_guardias') }}" method="POST">
+            <button type="submit">Asignar Guardias</button>
+        </form>
+        <div id="resultados">
+            {% if resultados %}
+                <h3>Resultados de la Asignación:</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            <th>Semestre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for resultado in resultados %}
+                            <tr>
+                                <td>{{ resultado.nombre }}</td>
+                                <td>{{ resultado.rol }}</td>
+                                <td>{{ resultado.semestre }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No hay resultados para mostrar.</p>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>
+

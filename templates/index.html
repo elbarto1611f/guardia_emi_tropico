@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardias EMI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #f0f0f0; /* Color de fondo suave */
+            display: flex;
+            flex-direction: column; /* Coloca los elementos en columna */
+            align-items: center; /* Centra horizontalmente los elementos */
+        }
+
+        .sidebar {
+            width: 250px; /* Ancho fijo para la barra lateral */
+            padding: 20px;
+            background-color: #93ad3c; /* Azul brillante para el menú */
+            color: white;
+            height: 100vh; /* Ocupa toda la altura de la pantalla */
+            position: fixed; /* Mantener en la parte izquierda */
+            top: 0;
+            left: 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+            z-index: 1000; /* Asegurarse de que esté encima de otros elementos */
+        }
+
+        .sidebar img {
+            width: 100%; /* La imagen ocupará el 100% del ancho del div */
+            height: auto; /* Mantiene la relación de aspecto */
+            max-width: 200px; /* Tamaño máximo */
+            margin-bottom: 20px; /* Espacio debajo de la imagen */
+        }
+
+        /* Nueva sección para el título */
+        .header-title {
+            background-color: #003366; /* Fondo azul */
+            color: white; /* Texto blanco */
+            text-align: center; /* Centrar texto */
+            padding: 20px 0; /* Espaciado */
+            width: calc(100% - 250px); /* Ancho ajustado con margen para la barra lateral */
+            margin-left: 250px; /* Dejar espacio para la barra lateral */
+        }
+
+        h1 {
+            font-size: 36px; /* Tamaño grande para el título */
+            margin: 0; /* Sin márgenes */
+            padding: 10px; /* Espaciado */
+            text-shadow: 2px 2px 4px rgba(232, 223, 223, 0.7); /* Sombra de texto para más legibilidad */
+        }
+
+        /* Nueva sección para la imagen */
+        .header-image {
+            background-image: url("{{ url_for('static', filename='images/guardia_emi.jpg') }}");
+            background-size: cover; /* Para que la imagen cubra todo el área */
+            background-position: center; /* Centrar la imagen */
+            height: 300px; /* Altura de la imagen de fondo */
+            width: calc(100% - 250px); /* Ancho ajustado */
+            margin-left: 250px; /* Dejar espacio para la barra lateral */
+        }
+
+        .main-content {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente */
+            border-radius: 10px; /* Bordes redondeados */
+            margin-top: 20px; /* Espacio superior */
+            box-shadow: 0 2px 10px rgba(21, 20, 20, 0.2); /* Sombra para el contenido */
+            margin-left: 250px; /* Margen izquierdo para alinear con el menú */
+            width: calc(100% - 250px); /* Ancho ajustado */
+            display: flex; /* Para alinear el párrafo y la imagen en fila */
+            flex-direction: column; /* Coloca el contenido en columna */
+            align-items: center; /* Centrar horizontalmente el contenido */
+            justify-content: center; /* Centrar verticalmente el contenido */
+        }
+
+        .content {
+            margin-top: 20px; /* Espacio entre el título y el contenido */
+            font-size: 16px; /* Tamaño de fuente más grande */
+            color: #141212; /* Color del texto */
+            max-width: 800px; /* Limitar el ancho del párrafo */
+            text-align: center; /* Centra el texto */
+        }
+
+        .emi-tropico {
+            width: 100%; /* Ajustar el ancho de la imagen de EMI-Tropico */
+            height: auto; /* Mantiene la relación de aspecto */
+            margin-top: 20px; /* Espacio superior */
+            max-width: 500px; /* Tamaño máximo */
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #28a745; /* Verde para los botones */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s; /* Animación suave para hover */
+            font-size: 16px; /* Tamaño de fuente en botones */
+        }
+
+        .button:hover {
+            background-color: #218838; /* Verde más oscuro al pasar el mouse */
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%; /* Barra lateral ocupando todo el ancho */
+                height: auto; /* Ajusta la altura */
+                position: relative; /* Cambia a relativo en pantallas pequeñas */
+            }
+
+            .header-title, .header-image, .main-content {
+                margin-left: 0; /* Sin margen izquierdo en pantallas pequeñas */
+                width: 100%; /* Ancho completo */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2 class="menu-title">MENÚ PARA ASIGNACIÓN DE GUARDIAS</h2>
+        <img src="{{ url_for('static', filename='images/sello_emi.jpg') }}" alt="Sello EMI">
+        <a href="{{ url_for('register_student') }}" class="button">Registrar Estudiante</a>
+        <a href="{{ url_for('asignacion_guardias') }}" class="button">Asignar Estudiantes con Machine Learning por Carreras</a>
+        <a href="#" class="button">Reportes de Asignación</a>
+    </div>
+    
+    <!-- Sección del título con fondo azul -->
+    <div class="header-title">
+        <h1>BIENVENIDOS AL SISTEMA WEB DE ASIGNACION DE GUARDIAS</h1>
+    </div>
+
+    <!-- Sección con la imagen de fondo -->
+    <div class="header-image"></div>
+
+    <div class="main-content">
+        <div class="content">
+            <p>La realización de guardias es crucial en el entorno académico, ya que asegura la seguridad y la supervisión en las instalaciones. La implementación de inteligencia artificial en este proceso facilita la asignación de responsabilidades y optimiza el uso del tiempo, permitiendo que los estudiantes se concentren en sus estudios y actividades académicas.</p>
+            <p>Contacto: Shianahota - Av. Cochabamba - Santa Cruz - OTB Germán Busch. Teléfono: 72717348.</p>
+        </div>
+        <img src="{{ url_for('static', filename='images/emi_tropico.png') }}" alt="Geografía de la EMI-Tropico" class="emi-tropico">
+    </div>
+</body>
+
+</html>
+

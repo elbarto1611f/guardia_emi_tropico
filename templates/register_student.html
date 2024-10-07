@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Estudiantes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <!-- JavaScript para mostrar el alert -->
+    <script>
+        function showAlert(event, action) {
+            event.preventDefault(); // Prevenir el envío inmediato del formulario
+            const form = document.getElementById('registroForm');
+            
+            if (form.checkValidity()) {
+                let message = "";
+                
+                // Determinar el mensaje en función de la acción
+                if (action === 'registrar') {
+                    message = "¡Estudiante registrado exitosamente!";
+                } else if (action === 'modificar') {
+                    message = "¡Estudiante modificado exitosamente!";
+                } else if (action === 'eliminar') {
+                    message = "¡Estudiante eliminado exitosamente!";
+                }
+
+                // Mostrar el mensaje de alerta
+                alert(message);
+                
+                // Enviar el formulario después de mostrar el mensaje de alerta
+                form.submit();
+            } else {
+                // Si la validación falla, mostrar los errores HTML5
+                form.reportValidity();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Registro de Estudiantes</h1>
+
+    <!-- Bloque para mostrar mensajes de flash -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Formulario para registrar estudiantes manualmente -->
+    <form action="{{ url_for('registrar_estudiante') }}" method="POST" id="registroForm">
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <label for="apellido">Apellido:</label><br>
+        <input type="text" id="apellido" name="apellido" required><br><br>
+
+        <label for="carrera">Carrera:</label><br>
+        <select id="carrera_id" name="carrera_id" required>
+            <option value="">Seleccione una carrera</option>
+            {% for carrera in carreras %}
+                <option value="{{ carrera[0] }}">{{ carrera[1] }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="semestre">Semestre:</label><br>
+        <input type="number" id="semestre" name="semestre" min="2" max="8" required><br><br>
+
+        <button type="submit" onclick="showAlert(event, 'registrar')">Guardar</button>
+        <button type="submit" formaction="{{ url_for('modificar_estudiante') }}" formmethod="post" onclick="showAlert(event, 'modificar')">Modificar</button>
+        <button type="submit" formaction="{{ url_for('eliminar_estudiante') }}" formmethod="post" onclick="showAlert(event, 'eliminar')">Eliminar</button>
+    </form>
+
+    <!-- Botón para volver a la página principal -->
+    <br>
+    <a href="{{ url_for('index') }}">Volver a la página principal</a>
+</body>
+</html>
